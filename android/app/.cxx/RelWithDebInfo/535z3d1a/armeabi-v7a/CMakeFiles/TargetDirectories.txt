@@ -1,0 +1,2 @@
+C:/maven/service/service/android/app/.cxx/RelWithDebInfo/535z3d1a/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/maven/service/service/android/app/.cxx/RelWithDebInfo/535z3d1a/armeabi-v7a/CMakeFiles/rebuild_cache.dir

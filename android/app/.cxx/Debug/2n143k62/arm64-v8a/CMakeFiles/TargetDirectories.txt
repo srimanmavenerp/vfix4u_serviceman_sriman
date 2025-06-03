@@ -1,0 +1,2 @@
+H:/vifix4u/serviceman/android/app/.cxx/Debug/2n143k62/arm64-v8a/CMakeFiles/edit_cache.dir
+H:/vifix4u/serviceman/android/app/.cxx/Debug/2n143k62/arm64-v8a/CMakeFiles/rebuild_cache.dir
