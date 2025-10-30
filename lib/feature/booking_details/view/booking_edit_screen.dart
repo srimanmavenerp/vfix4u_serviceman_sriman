@@ -1,6 +1,7 @@
 
 
-//
+
+
 // import 'package:demandium_serviceman/utils/core_export.dart';
 // import 'package:get/get.dart';
 // import 'package:demandium_serviceman/helper/booking_helper.dart';
@@ -37,6 +38,15 @@
 //       padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
 //       child: Row(
 //         children: [
+//           // ClipRRect(
+//           //   borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+//           //   child: CustomImage(
+//           //     image: service['service_thumbnail'] ?? '',
+//           //     height: 40,
+//           //     width: 40,
+//           //     fit: BoxFit.cover,
+//           //   ),
+//           // ),
 //           const SizedBox(width: Dimensions.paddingSizeSmall),
 //           Expanded(
 //             child: Column(
@@ -54,6 +64,7 @@
 //                 const SizedBox(height: Dimensions.paddingSizeExtraSmall),
 //                 Text(
 //                   '${PriceConverter.convertPrice(double.tryParse(service['service_amount'].toString()) ?? 0.0)}',
+//                   //' x ${service['quantity'] ?? 1}',
 //                   style: robotoRegular.copyWith(
 //                     fontSize: Dimensions.fontSizeSmall,
 //                     color: Theme.of(context).hintColor,
@@ -64,6 +75,43 @@
 //           ),
 //           Row(
 //             children: [
+//               // InkWell(
+//               //   onTap: () => controller.decrementServiceQuantity(index),
+//               //   child: Container(
+//               //     padding: const EdgeInsets.all(2),
+//               //     decoration: BoxDecoration(
+//               //       border: Border.all(color: Theme.of(context).hintColor),
+//               //       borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+//               //     ),
+//               //     child: Icon(
+//               //       Icons.remove,
+//               //       size: 16,
+//               //       color: Theme.of(context).hintColor,
+//               //     ),
+//               //   ),
+//               // ),
+//               // Padding(
+//               //   padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraSmall),
+//               //   child: Text(
+//               //     service['quantity'].toString(),
+//               //     style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeDefault),
+//               //   ),
+//               // ),
+//               // InkWell(
+//               //   onTap: () => controller.incrementServiceQuantity(index),
+//               //   child: Container(
+//               //     padding: const EdgeInsets.all(2),
+//               //     decoration: BoxDecoration(
+//               //       border: Border.all(color: Theme.of(context).primaryColor),
+//               //       borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+//               //     ),
+//               //     child: Icon(
+//               //       Icons.add,
+//               //       size: 16,
+//               //       color: Theme.of(context).primaryColor,
+//               //     ),
+//               //   ),
+//               // ),
 //               const SizedBox(width: Dimensions.paddingSizeSmall),
 //               InkWell(
 //                 onTap: () => controller.removeServiceData(index),
@@ -93,17 +141,11 @@
 //   @override
 //   void initState() {
 //     super.initState();
-//     final bookingEditController = Get.find<BookingEditController>();
-//     // Clear previous data to ensure a fresh state
-//     bookingEditController.clearTextFields();
-//     bookingEditController.serviceData.clear();
-//     // Initialize with current booking details
-//     bookingEditController.initializedControllerValue(
-//       Get.find<BookingDetailsController>()
-//           .bookingDetails
-//           ?.bookingContent
-//           ?.bookingDetailsContent,
-//     );
+//     Get.find<BookingEditController>().initializedControllerValue(
+//         Get.find<BookingDetailsController>()
+//             .bookingDetails
+//             ?.bookingContent
+//             ?.bookingDetailsContent);
 //   }
 //
 //   @override
@@ -126,7 +168,7 @@
 //                   child: Column(
 //                     crossAxisAlignment: CrossAxisAlignment.start,
 //                     children: [
-//                       const PaymentStatusButton(),
+//                       //const PaymentStatusButton(),
 //                       const SizedBox(height: Dimensions.paddingSizeDefault),
 //                       Container(
 //                         width: Get.width,
@@ -375,12 +417,9 @@
 //                             fontSize: Dimensions.fontSizeLarge),
 //                       ),
 //                       const SizedBox(height: Dimensions.paddingSizeSmall),
-//                       Obx(() => bookingEditController.serviceData.isEmpty
-//                           ? const SizedBox()
-//                           : GridView.builder(
+//                       Obx(() => GridView.builder(
 //                         key: UniqueKey(),
-//                         gridDelegate:
-//                         SliverGridDelegateWithFixedCrossAxisCount(
+//                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
 //                           crossAxisSpacing: Dimensions.paddingSizeLarge,
 //                           mainAxisSpacing: ResponsiveHelper.isDesktop(context)
 //                               ? Dimensions.paddingSizeLarge
@@ -515,35 +554,25 @@
 //                     btnTxt: "update_status".tr,
 //                     isLoading: bookingEditController.statusUpdateLoading,
 //                     onPressed: () {
-//                       // Collect new service data from text fields
 //                       List<Map<String, dynamic>> newServiceData = [];
 //                       for (var row in bookingEditController.textFieldList) {
-//                         String serviceName = row.firstController.text.trim();
-//                         String serviceAmount = row.secondController.text.trim();
-//                         // Validate inputs
-//                         if (serviceName.isNotEmpty &&
-//                             serviceAmount.isNotEmpty &&
-//                             double.tryParse(serviceAmount) != null) {
+//                         if (row.firstController.text.isNotEmpty &&
+//                             row.secondController.text.isNotEmpty) {
 //                           newServiceData.add({
-//                             "service_name": serviceName,
-//                             "service_amount": serviceAmount,
-//                             "quantity": row.quantity.value.toString(),
+//                             "service_name": row.firstController.text,
+//                             "service_amount": row.secondController.text,
+//                             "quantity": "1",
 //                             "service_thumbnail": '',
-//                             "discount": row.discountController.text.trim().isNotEmpty
-//                                 ? row.discountController.text.trim()
-//                                 : null,
-//                             "discount_type": row.discountType.value != 'none'
-//                                 ? row.discountType.value
-//                                 : null,
 //                           });
 //                         }
 //                       }
 //
-//                       // Append only valid
+//                       // Append new service data to existing serviceData
 //                       if (newServiceData.isNotEmpty) {
 //                         bookingEditController.appendServiceData(newServiceData);
 //                       }
 //
+//                       // Call updateBooking to save changes
 //                       bookingEditController.updateBooking(
 //                         bookingId:
 //                         bookingDetails?.subBooking?.id ?? bookingDetails?.id,
@@ -554,7 +583,7 @@
 //                         isSubBooking: widget.isSubBooking,
 //                       );
 //
-//                       // Clear text fields to prevent old data
+//                       // Clear text fields
 //                       bookingEditController.clearTextFields();
 //
 //                       Navigator.pop(context);
@@ -569,8 +598,6 @@
 //     );
 //   }
 // }
-//
-//
 
 
 
@@ -742,87 +769,87 @@ class _BookingEditScreenState extends State<BookingEditScreen> {
                     children: [
                       //const PaymentStatusButton(),
                       const SizedBox(height: Dimensions.paddingSizeDefault),
-                      Container(
-                        width: Get.width,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: Dimensions.paddingSizeLarge),
-                        decoration: BoxDecoration(
-                          color:
-                          Theme.of(context).cardColor.withValues(alpha: 0.1),
-                          borderRadius:
-                          BorderRadius.circular(Dimensions.paddingSizeSmall),
-                          border: Border.all(
-                              color: Theme.of(context)
-                                  .primaryColor
-                                  .withValues(alpha: 0.2),
-                              width: 1),
-                        ),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton(
-                            dropdownColor: Theme.of(context).cardColor,
-                            borderRadius: BorderRadius.circular(5),
-                            elevation: 2,
-                            hint: Text(
-                              bookingEditController.selectedBookingStatus == ''
-                                  ? "select_booking_status".tr
-                                  : "${'booking_status'.tr} : ${bookingEditController.selectedBookingStatus.tr}",
-                              style: robotoRegular.copyWith(
-                                  color: bookingEditController
-                                      .selectedBookingStatus ==
-                                      ''
-                                      ? Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
-                                      .color!
-                                      .withValues(alpha: 0.6)
-                                      : Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
-                                      .color!
-                                      .withValues(alpha: 0.8)),
-                            ),
-                            icon: const Icon(Icons.keyboard_arrow_down),
-                            items: bookingEditController.statusTypeList
-                                .map((String items) {
-                              return DropdownMenuItem(
-                                value: items,
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      items.tr,
-                                      style: robotoRegular.copyWith(
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge!
-                                            .color!
-                                            .withValues(alpha: 0.8),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              if (Get.find<BookingDetailsController>()
-                                  .bookingDetails
-                                  ?.bookingContent
-                                  ?.bookingDetailsContent
-                                  ?.bookingStatus ==
-                                  "ongoing" &&
-                                  newValue?.toLowerCase() == "accepted") {
-                                showCustomSnackBar(
-                                    'service_is_already_ongoing'.tr,
-                                    type: ToasterMessageType.info);
-                                bookingEditController
-                                    .changeBookingStatusDropDownValue("ongoing");
-                              } else {
-                                bookingEditController
-                                    .changeBookingStatusDropDownValue(newValue!);
-                              }
-                            },
-                          ),
-                        ),
-                      ),
+                      // Container(
+                      //   width: Get.width,
+                      //   padding: const EdgeInsets.symmetric(
+                      //       horizontal: Dimensions.paddingSizeLarge),
+                      //   decoration: BoxDecoration(
+                      //     color:
+                      //     Theme.of(context).cardColor.withValues(alpha: 0.1),
+                      //     borderRadius:
+                      //     BorderRadius.circular(Dimensions.paddingSizeSmall),
+                      //     border: Border.all(
+                      //         color: Theme.of(context)
+                      //             .primaryColor
+                      //             .withValues(alpha: 0.2),
+                      //         width: 1),
+                      //   ),
+                      //   child: DropdownButtonHideUnderline(
+                      //     child: DropdownButton(
+                      //       dropdownColor: Theme.of(context).cardColor,
+                      //       borderRadius: BorderRadius.circular(5),
+                      //       elevation: 2,
+                      //       hint: Text(
+                      //         bookingEditController.selectedBookingStatus == ''
+                      //             ? "select_booking_status".tr
+                      //             : "${'booking_status'.tr} : ${bookingEditController.selectedBookingStatus.tr}",
+                      //         style: robotoRegular.copyWith(
+                      //             color: bookingEditController
+                      //                 .selectedBookingStatus ==
+                      //                 ''
+                      //                 ? Theme.of(context)
+                      //                 .textTheme
+                      //                 .bodyLarge!
+                      //                 .color!
+                      //                 .withValues(alpha: 0.6)
+                      //                 : Theme.of(context)
+                      //                 .textTheme
+                      //                 .bodyLarge!
+                      //                 .color!
+                      //                 .withValues(alpha: 0.8)),
+                      //       ),
+                      //       icon: const Icon(Icons.keyboard_arrow_down),
+                      //       items: bookingEditController.statusTypeList
+                      //           .map((String items) {
+                      //         return DropdownMenuItem(
+                      //           value: items,
+                      //           child: Row(
+                      //             children: [
+                      //               Text(
+                      //                 items.tr,
+                      //                 style: robotoRegular.copyWith(
+                      //                   color: Theme.of(context)
+                      //                       .textTheme
+                      //                       .bodyLarge!
+                      //                       .color!
+                      //                       .withValues(alpha: 0.8),
+                      //                 ),
+                      //               ),
+                      //             ],
+                      //           ),
+                      //         );
+                      //       }).toList(),
+                      //       onChanged: (String? newValue) {
+                      //         if (Get.find<BookingDetailsController>()
+                      //             .bookingDetails
+                      //             ?.bookingContent
+                      //             ?.bookingDetailsContent
+                      //             ?.bookingStatus ==
+                      //             "ongoing" &&
+                      //             newValue?.toLowerCase() == "accepted") {
+                      //           showCustomSnackBar(
+                      //               'service_is_already_ongoing'.tr,
+                      //               type: ToasterMessageType.info);
+                      //           bookingEditController
+                      //               .changeBookingStatusDropDownValue("ongoing");
+                      //         } else {
+                      //           bookingEditController
+                      //               .changeBookingStatusDropDownValue(newValue!);
+                      //         }
+                      //       },
+                      //     ),
+                      //   ),
+                      // ),
                       TextFieldTitle(
                         title: "service_schedule".tr,
                         fontSize: Dimensions.fontSizeLarge,

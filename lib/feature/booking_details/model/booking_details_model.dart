@@ -100,6 +100,64 @@ class ServiceData {
   }
 }
 
+class PickupInfo {
+  String? pickupOption;
+  String? bookingOtp;
+  LaptopDetails? laptopDetails;
+  String? rescheduleDate;
+
+  PickupInfo(
+      {this.pickupOption,
+      this.bookingOtp,
+      this.laptopDetails,
+      this.rescheduleDate});
+
+  PickupInfo.fromJson(Map<String, dynamic> json) {
+    pickupOption = json['pickup_option'];
+    bookingOtp = json['booking_otp'];
+    laptopDetails = json['laptop_details'] != null
+        ? LaptopDetails.fromJson(json['laptop_details'])
+        : null;
+    rescheduleDate = json['reschedule_date'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+    data['pickup_option'] = pickupOption;
+    data['booking_otp'] = bookingOtp;
+    if (laptopDetails != null) data['laptop_details'] = laptopDetails!.toJson();
+    data['reschedule_date'] = rescheduleDate;
+    return data;
+  }
+
+  @override
+  String toString() {
+    return 'PickupInfo(pickupOption: $pickupOption, bookingOtp: $bookingOtp, laptopDetails: $laptopDetails, rescheduleDate: $rescheduleDate)';
+  }
+}
+
+class LaptopDetails {
+  String? ram;
+  String? storage;
+  String? processor;
+
+  LaptopDetails({this.ram, this.storage, this.processor});
+
+  LaptopDetails.fromJson(Map<String, dynamic> json) {
+    ram = json['ram'];
+    storage = json['storage'];
+    processor = json['processor'];
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'ram': ram, 'storage': storage, 'processor': processor};
+  }
+
+  @override
+  String toString() =>
+      'LaptopDetails(ram: $ram, storage: $storage, processor: $processor)';
+}
+
 class BookingDetailsContent {
   String? id;
   String? readableId;
@@ -141,6 +199,7 @@ class BookingDetailsContent {
   String? smanReview;
   String? cancelReason;
   String? cusRev;
+  PickupInfo? pickupInfo; // NEW FIELD
 
   BookingDetailsContent({
     this.id,
@@ -183,6 +242,7 @@ class BookingDetailsContent {
     this.smanReview,
     this.cancelReason,
     this.cusRev,
+    this.pickupInfo, // NEW FIELD
   });
 
   BookingDetailsContent.fromJson(Map<String, dynamic> json) {
@@ -284,7 +344,9 @@ class BookingDetailsContent {
     smanReview = json['sman_review'] ?? null;
     cancelReason = json['cancelled_reason'];
     cusRev = json['cusreviews'];
-
+    pickupInfo = json['pickup_info'] != null
+        ? PickupInfo.fromJson(json['pickup_info'])
+        : null; // NEW
   }
 
   Map<String, dynamic> toJson() {
@@ -338,6 +400,10 @@ class BookingDetailsContent {
 
     data['cancelled_reason'] = cancelReason;
     data['cusreviews'] = cusRev;
+
+    if (pickupInfo != null) {
+      data['pickup_info'] = pickupInfo!.toJson();
+    }
     return data;
   }
 }
@@ -939,6 +1005,3 @@ class PartialPayment {
     return data;
   }
 }
-
-
-

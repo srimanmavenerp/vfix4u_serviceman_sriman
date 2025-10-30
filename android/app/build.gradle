@@ -35,7 +35,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace = "com.vfix4u.com.vfix4u.serviceman"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk 35
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -50,9 +50,9 @@ android {
     defaultConfig {
         applicationId "com.vfix4u.com.vfix4u.serviceman"
         minSdk = 23
-        targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode
-        versionName = flutter.versionName
+        targetSdkVersion 35
+        versionCode = 12
+        versionName = '1.1.2 '
         multiDexEnabled true
     }
 

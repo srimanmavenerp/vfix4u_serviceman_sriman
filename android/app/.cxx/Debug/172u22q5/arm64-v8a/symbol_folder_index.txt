@@ -1,0 +1,1 @@
+C:\maven\newmaven\Vfix4u-Service Crew\build\app\intermediates\cxx\Debug\172u22q5\obj\arm64-v8a

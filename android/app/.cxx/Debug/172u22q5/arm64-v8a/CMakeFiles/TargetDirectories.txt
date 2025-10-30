@@ -1,0 +1,2 @@
+C:/maven/newmaven/Vfix4u-Service Crew/android/app/.cxx/Debug/172u22q5/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/maven/newmaven/Vfix4u-Service Crew/android/app/.cxx/Debug/172u22q5/arm64-v8a/CMakeFiles/rebuild_cache.dir
