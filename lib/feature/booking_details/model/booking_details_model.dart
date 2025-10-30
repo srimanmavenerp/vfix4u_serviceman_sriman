@@ -140,22 +140,48 @@ class LaptopDetails {
   String? ram;
   String? storage;
   String? processor;
+  String? model;
+  String? note;
+  List<String>? images; // ✅ Should be a list, not a string
 
-  LaptopDetails({this.ram, this.storage, this.processor});
+  LaptopDetails({
+    this.ram,
+    this.storage,
+    this.processor,
+    this.model,
+    this.note,
+    this.images,
+  });
 
-  LaptopDetails.fromJson(Map<String, dynamic> json) {
-    ram = json['ram'];
-    storage = json['storage'];
-    processor = json['processor'];
+  factory LaptopDetails.fromJson(Map<String, dynamic> json) {
+    return LaptopDetails(
+      ram: json['ram'],
+      storage: json['storage'],
+      processor: json['processor'],
+      model: json['model'],
+      note: json['note'],
+      images: json['images'] != null
+          ? List<String>.from(json['images'])
+          : [], // ✅ safely convert to list
+    );
   }
 
   Map<String, dynamic> toJson() {
-    return {'ram': ram, 'storage': storage, 'processor': processor};
+    return {
+      'ram': ram,
+      'storage': storage,
+      'processor': processor,
+      'model': model,
+      'note': note,
+      'images': images,
+    };
   }
 
   @override
-  String toString() =>
-      'LaptopDetails(ram: $ram, storage: $storage, processor: $processor)';
+  String toString() {
+    return 'LaptopDetails(ram: $ram, storage: $storage, processor: $processor, '
+        'model: $model, note: $note, images: $images)';
+  }
 }
 
 class BookingDetailsContent {
