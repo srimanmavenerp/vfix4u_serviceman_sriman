@@ -330,104 +330,6 @@ class _BookingDetailsWidgetState extends State<BookingDetailsWidget> {
                                                 ]),
                                           ),
                                         ),
-                                      // Visibility(
-                                      //   visible: bookingDetails
-                                      //           ?.pickupInfo?.laptopDetails !=
-                                      //       null,
-                                      //   child: Column(
-                                      //     crossAxisAlignment:
-                                      //         CrossAxisAlignment.start,
-                                      //     children: [
-                                      //       Text(
-                                      //         "Pickup Option: ${bookingDetails?.pickupInfo?.pickupOption ?? ''}",
-                                      //         style: robotoRegular.copyWith(
-                                      //             fontSize: Dimensions
-                                      //                 .fontSizeDefault),
-                                      //       ),
-                                      //       Text(
-                                      //         "Booking OTP: ${bookingDetails?.pickupInfo?.bookingOtp ?? ''}",
-                                      //         style: robotoRegular.copyWith(
-                                      //             fontSize: Dimensions
-                                      //                 .fontSizeDefault),
-                                      //       ),
-                                      //       Text(
-                                      //         "Reschedule: ${bookingDetails?.pickupInfo?.rescheduleDate ?? ''}",
-                                      //         style: robotoRegular.copyWith(
-                                      //             fontSize: Dimensions
-                                      //                 .fontSizeDefault),
-                                      //       ),
-                                      //       Visibility(
-                                      //         visible: bookingDetails
-                                      //                 ?.pickupInfo
-                                      //                 ?.laptopDetails !=
-                                      //             null,
-                                      //         child: Column(
-                                      //           crossAxisAlignment:
-                                      //               CrossAxisAlignment.start,
-                                      //           children: [
-                                      //             Text(
-                                      //               "Laptop Details:",
-                                      //               style: robotoBold.copyWith(
-                                      //                   fontSize: Dimensions
-                                      //                       .fontSizeDefault),
-                                      //             ),
-                                      //             Visibility(
-                                      //               visible: bookingDetails
-                                      //                           ?.pickupInfo
-                                      //                           ?.pickupOption ==
-                                      //                       "pickup" ||
-                                      //                   bookingDetails
-                                      //                           ?.pickupInfo
-                                      //                           ?.laptopDetails
-                                      //                           ?.ram !=
-                                      //                       null,
-                                      //               child: Text(
-                                      //                 "RAM: ${bookingDetails?.pickupInfo?.laptopDetails?.ram ?? ''}",
-                                      //                 style: robotoRegular.copyWith(
-                                      //                     fontSize: Dimensions
-                                      //                         .fontSizeSmall),
-                                      //               ),
-                                      //             ),
-                                      //             Visibility(
-                                      //               visible: bookingDetails
-                                      //                           ?.pickupInfo
-                                      //                           ?.pickupOption ==
-                                      //                       "pickup" &&
-                                      //                   bookingDetails
-                                      //                           ?.pickupInfo
-                                      //                           ?.laptopDetails
-                                      //                           ?.storage !=
-                                      //                       null,
-                                      //               child: Text(
-                                      //                 "Storage: ${bookingDetails?.pickupInfo?.laptopDetails?.storage ?? ''}",
-                                      //                 style: robotoRegular.copyWith(
-                                      //                     fontSize: Dimensions
-                                      //                         .fontSizeSmall),
-                                      //               ),
-                                      //             ),
-                                      //             Visibility(
-                                      //               visible: bookingDetails
-                                      //                           ?.pickupInfo
-                                      //                           ?.pickupOption ==
-                                      //                       "pickup" ||
-                                      //                   bookingDetails
-                                      //                           ?.pickupInfo
-                                      //                           ?.laptopDetails
-                                      //                           ?.processor !=
-                                      //                       null,
-                                      //               child: Text(
-                                      //                 "Processor: ${bookingDetails?.pickupInfo?.laptopDetails?.processor ?? ''}",
-                                      //                 style: robotoRegular.copyWith(
-                                      //                     fontSize: Dimensions
-                                      //                         .fontSizeSmall),
-                                      //               ),
-                                      //             ),
-                                      //           ],
-                                      //         ),
-                                      //       ),
-                                      //     ],
-                                      //   ),
-                                      // ),
                                       BookingInformationView(
                                         bookingDetails: bookingDetails!,
                                         isSubBooking: widget.isSubBooking,
@@ -437,119 +339,141 @@ class _BookingDetailsWidgetState extends State<BookingDetailsWidget> {
                               SizedBox(
                                 height: 10,
                               ),
-
-                              ElevatedButton(
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    barrierDismissible: true,
-                                    builder: (context) {
-                                      return Dialog(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
-                                        insetPadding:
-                                            const EdgeInsets.symmetric(
-                                                horizontal: 16, vertical: 24),
-                                        child: ConstrainedBox(
-                                          constraints: BoxConstraints(
-                                            maxWidth: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.95,
-                                            maxHeight: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.85,
+                              if (bookingDetails
+                                      ?.pickupInfo?.pickupOption?.isEmpty ??
+                                  true)
+                                ElevatedButton(
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      barrierDismissible: true,
+                                      builder: (context) {
+                                        return Dialog(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
                                           ),
-                                          child: SingleChildScrollView(
-                                            padding: const EdgeInsets.all(16),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    const Text(
-                                                      "Pickup Options",
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.bold,
+                                          insetPadding:
+                                              const EdgeInsets.symmetric(
+                                                  horizontal: 16, vertical: 24),
+                                          child: ConstrainedBox(
+                                            constraints: BoxConstraints(
+                                              maxWidth: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.95,
+                                              maxHeight: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.85,
+                                            ),
+                                            child: SingleChildScrollView(
+                                              padding: const EdgeInsets.all(16),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      const Text(
+                                                        "Pickup Options",
+                                                        style: TextStyle(
+                                                          fontSize: 18,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
                                                       ),
-                                                    ),
-                                                    IconButton(
-                                                      icon: const Icon(
-                                                          Icons.close),
-                                                      onPressed: () =>
-                                                          Navigator.pop(
-                                                              context),
-                                                    ),
-                                                  ],
-                                                ),
-                                                const Divider(),
-                                                PickupOptionWidget(
-                                                  bookingotp: bookingDetails
-                                                      .pickupInfo?.bookingOtp,
-                                                  bookingId:
-                                                      bookingDetails.id ?? "",
-                                                  initialOption: bookingDetails
-                                                      .pickupInfo?.pickupOption,
-                                                  initialRescheduleDateTime:
-                                                      bookingDetails.pickupInfo
-                                                                  ?.rescheduleDate !=
-                                                              null
-                                                          ? DateTime.tryParse(
-                                                              bookingDetails
-                                                                  .pickupInfo!
-                                                                  .rescheduleDate!)
-                                                          : null,
-                                                  laptopDetails: {
-                                                    "ram": bookingDetails
-                                                            .pickupInfo
-                                                            ?.laptopDetails
-                                                            ?.ram ??
-                                                        '',
-                                                    "storage": bookingDetails
-                                                            .pickupInfo
-                                                            ?.laptopDetails
-                                                            ?.storage ??
-                                                        '',
-                                                    "processor": bookingDetails
-                                                            .pickupInfo
-                                                            ?.laptopDetails
-                                                            ?.processor ??
-                                                        '',
-                                                    "model": bookingDetails
-                                                            .pickupInfo
-                                                            ?.laptopDetails
-                                                            ?.model ??
-                                                        '',
-                                                    "note": bookingDetails
-                                                            .pickupInfo
-                                                            ?.laptopDetails
-                                                            ?.note ??
-                                                        '',
-                                                    "images": bookingDetails
-                                                            .pickupInfo
-                                                            ?.laptopDetails
-                                                            ?.images ??
-                                                        <String>[],
-                                                  },
-                                                ),
-                                              ],
+                                                      IconButton(
+                                                        icon: const Icon(
+                                                            Icons.close),
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                context),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  const Divider(),
+                                                  PickupOptionWidget(
+                                                    bookingotp: bookingDetails
+                                                        ?.pickupInfo
+                                                        ?.bookingOtp,
+                                                    bookingId:
+                                                        bookingDetails?.id ??
+                                                            "",
+                                                    initialOption:
+                                                        bookingDetails
+                                                            ?.pickupInfo
+                                                            ?.pickupOption,
+                                                    initialRescheduleDateTime:
+                                                        bookingDetails
+                                                                    ?.pickupInfo
+                                                                    ?.rescheduleDate !=
+                                                                null
+                                                            ? DateTime.tryParse(
+                                                                bookingDetails!
+                                                                    .pickupInfo!
+                                                                    .rescheduleDate!)
+                                                            : null,
+                                                    laptopDetails: {
+                                                      "ram": bookingDetails
+                                                              ?.pickupInfo
+                                                              ?.laptopDetails
+                                                              ?.ram ??
+                                                          '',
+                                                      "storage": bookingDetails
+                                                              ?.pickupInfo
+                                                              ?.laptopDetails
+                                                              ?.storage ??
+                                                          '',
+                                                      "processor": bookingDetails
+                                                              ?.pickupInfo
+                                                              ?.laptopDetails
+                                                              ?.processor ??
+                                                          '',
+                                                      "model": bookingDetails
+                                                              ?.pickupInfo
+                                                              ?.laptopDetails
+                                                              ?.model ??
+                                                          '',
+                                                      "note": bookingDetails
+                                                              ?.pickupInfo
+                                                              ?.laptopDetails
+                                                              ?.note ??
+                                                          '',
+                                                      "images": bookingDetails
+                                                              ?.pickupInfo
+                                                              ?.laptopDetails
+                                                              ?.images ??
+                                                          <String>[],
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      );
-                                    },
-                                  );
-                                },
-                                child: const Text("Open Pickup Options"),
-                              ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: const Text("Open Pickup Options"),
+                                ),
+                              if (!(bookingDetails
+                                      ?.pickupInfo?.pickupOption?.isEmpty ??
+                                  true))
+                                PickupDetailsCard(
+                                  laptopDetails: bookingDetails
+                                          ?.pickupInfo?.laptopDetails
+                                          ?.toJson() ??
+                                      {},
+                                  bookingOtp:
+                                      bookingDetails?.pickupInfo?.bookingOtp,
+                                  status:
+                                      bookingDetails?.pickupInfo?.pickupOption,
+                                  date: bookingDetails
+                                      ?.pickupInfo?.rescheduleDate,
+                                ),
 
                               BookingDetailsCustomerInfo(
                                   bookingDetails:
@@ -1299,6 +1223,156 @@ class _PickupOptionWidgetState extends State<PickupOptionWidget> {
         decoration: InputDecoration(
           labelText: label,
           border: const OutlineInputBorder(),
+        ),
+      ),
+    );
+  }
+}
+
+class PickupDetailsCard extends StatelessWidget {
+  final Map<String, dynamic> laptopDetails;
+  final dynamic bookingOtp;
+
+  final dynamic status;
+
+  final dynamic date;
+
+  const PickupDetailsCard(
+      {super.key,
+      required this.laptopDetails,
+      this.bookingOtp,
+      this.status,
+      this.date});
+
+  @override
+  Widget build(BuildContext context) {
+    final List<String> imageUrls = (laptopDetails['images'] as List<dynamic>?)
+            ?.map((e) => e.toString())
+            .toList() ??
+        [];
+
+    return Card(
+      elevation: 1,
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Pickup Details",
+              style: robotoMedium.copyWith(
+                fontSize: 16,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+            const SizedBox(height: 8),
+            _buildRow("Status", status?.toString()),
+            const SizedBox(height: 8),
+            if (status != null &&
+                status.toString().toLowerCase() == "reschedule")
+              _buildRow(
+                  "Date",
+                  date != null
+                      ? DateFormat("yyyy-MM-dd HH:mm:ss")
+                          .format(DateTime.parse(date.toString()))
+                      : "-"),
+            const SizedBox(height: 8),
+            if (status != null && status.toString().toLowerCase() == "pickup")
+              _buildRow("OTP", bookingOtp?.toString()),
+            const SizedBox(height: 8),
+            if (status != null && status.toString().toLowerCase() == "pickup")
+              _buildRow("RAM", laptopDetails['ram']),
+            const SizedBox(height: 8),
+            if (status != null && status.toString().toLowerCase() == "pickup")
+              _buildRow("Storage", laptopDetails['storage']),
+            const SizedBox(height: 8),
+            if (status != null && status.toString().toLowerCase() == "pickup")
+              _buildRow("Processor", laptopDetails['processor']),
+            const SizedBox(height: 8),
+            if (status != null && status.toString().toLowerCase() == "pickup")
+              _buildRow("Model", laptopDetails['model']),
+            const SizedBox(height: 8),
+            if (status != null && status.toString().toLowerCase() == "pickup")
+              _buildRow("Note", laptopDetails['note']),
+            const SizedBox(height: 12),
+            if (imageUrls.isNotEmpty) _buildImageGrid(context, imageUrls),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRow(String label, String? value) {
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: "$label: ",
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
+            ),
+          ),
+          TextSpan(
+            text: value ?? "-",
+            style: const TextStyle(
+              fontWeight: FontWeight.normal,
+              color: Colors.black87,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildImageGrid(BuildContext context, List<String> imageUrls) {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        mainAxisSpacing: 5,
+        crossAxisSpacing: 5,
+      ),
+      itemCount: imageUrls.length,
+      itemBuilder: (context, index) {
+        final imageUrl = imageUrls[index];
+        return GestureDetector(
+          onTap: () => _showFullScreenImage(context, imageUrl),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(5),
+            child: Image.network(
+              imageUrl,
+              fit: BoxFit.cover,
+              errorBuilder: (_, __, ___) =>
+                  const Icon(Icons.broken_image, color: Colors.grey),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _showFullScreenImage(BuildContext context, String imageUrl) {
+    showDialog(
+      context: context,
+      builder: (_) => Dialog(
+        backgroundColor: Colors.black,
+        insetPadding: EdgeInsets.zero,
+        child: GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: InteractiveViewer(
+            child: Center(
+              child: Image.network(
+                imageUrl,
+                fit: BoxFit.contain,
+                errorBuilder: (_, __, ___) =>
+                    const Icon(Icons.broken_image, color: Colors.white),
+              ),
+            ),
+          ),
         ),
       ),
     );
