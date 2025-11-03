@@ -1278,25 +1278,32 @@ class PickupDetailsCard extends StatelessWidget {
                       ? DateFormat("yyyy-MM-dd HH:mm:ss")
                           .format(DateTime.parse(date.toString()))
                       : "-"),
-            const SizedBox(height: 8),
+            if (status != null && status.toString().toLowerCase() == "pickup")
+              const SizedBox(height: 8),
             if (status != null && status.toString().toLowerCase() == "pickup")
               _buildRow("OTP", bookingOtp?.toString()),
-            const SizedBox(height: 8),
+            if (status != null && status.toString().toLowerCase() == "pickup")
+              const SizedBox(height: 8),
             if (status != null && status.toString().toLowerCase() == "pickup")
               _buildRow("RAM", laptopDetails['ram']),
-            const SizedBox(height: 8),
+            if (status != null && status.toString().toLowerCase() == "pickup")
+              const SizedBox(height: 8),
             if (status != null && status.toString().toLowerCase() == "pickup")
               _buildRow("Storage", laptopDetails['storage']),
-            const SizedBox(height: 8),
+            if (status != null && status.toString().toLowerCase() == "pickup")
+              const SizedBox(height: 8),
             if (status != null && status.toString().toLowerCase() == "pickup")
               _buildRow("Processor", laptopDetails['processor']),
-            const SizedBox(height: 8),
+            if (status != null && status.toString().toLowerCase() == "pickup")
+              const SizedBox(height: 8),
             if (status != null && status.toString().toLowerCase() == "pickup")
               _buildRow("Model", laptopDetails['model']),
-            const SizedBox(height: 8),
+            if (status != null && status.toString().toLowerCase() == "pickup")
+              const SizedBox(height: 8),
             if (status != null && status.toString().toLowerCase() == "pickup")
               _buildRow("Note", laptopDetails['note']),
-            const SizedBox(height: 12),
+            if (status != null && status.toString().toLowerCase() == "pickup")
+              const SizedBox(height: 12),
             if (imageUrls.isNotEmpty) _buildImageGrid(context, imageUrls),
           ],
         ),
