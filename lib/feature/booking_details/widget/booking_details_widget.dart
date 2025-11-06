@@ -1070,157 +1070,192 @@ class _PickupOptionWidgetState extends State<PickupOptionWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Get.isDarkMode;
+
+    final themeText = isDark ? Colors.white : Colors.black87;
     return SingleChildScrollView(
       padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          DropdownButton<String>(
-            value: selectedOption,
-            hint: const Text("Pickup Option"),
-            items: const [
-              DropdownMenuItem(
-                  value: "discontinue", child: Text("Discontinue")),
-              DropdownMenuItem(value: "reschedule", child: Text("Reschedule")),
-              DropdownMenuItem(value: "pickup", child: Text("Pickup")),
-            ],
-            onChanged: (value) => setState(() => selectedOption = value),
-          ),
-          const SizedBox(height: 10),
+      child: Container(
+        color: isDark
+            ? Theme.of(context).primaryColorDark
+            : Theme.of(context).primaryColorLight,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            DropdownButton<String>(
+              value: selectedOption,
+              hint: Text(
+                "Pickup Option",
+                style: TextStyle(color: themeText),
+              ),
+              items: [
+                DropdownMenuItem(
+                    value: "discontinue",
+                    child: Text(
+                      "Discontinue",
+                      style: TextStyle(color: themeText),
+                    )),
+                DropdownMenuItem(
+                    value: "reschedule",
+                    child: Text(
+                      "Reschedule",
+                      style: TextStyle(color: themeText),
+                    )),
+                DropdownMenuItem(
+                    value: "pickup",
+                    child: Text(
+                      "Pickup",
+                      style: TextStyle(color: themeText),
+                    )),
+              ],
+              onChanged: (value) => setState(() => selectedOption = value),
+            ),
+            const SizedBox(height: 10),
 
-          // ✅ Reschedule section
-          if (selectedOption == "reschedule")
-            GestureDetector(
-              onTap: pickRescheduleDateTime,
-              child: AbsorbPointer(
-                child: TextField(
-                  decoration: InputDecoration(
-                    labelText: rescheduleDateTime != null
-                        ? DateFormat("yyyy-MM-dd HH:mm:ss")
-                            .format(rescheduleDateTime!)
-                        : "Select Reschedule Date & Time",
-                    border: const OutlineInputBorder(),
+            // ✅ Reschedule section
+            if (selectedOption == "reschedule")
+              GestureDetector(
+                onTap: pickRescheduleDateTime,
+                child: AbsorbPointer(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      labelText: rescheduleDateTime != null
+                          ? DateFormat("yyyy-MM-dd HH:mm:ss")
+                              .format(rescheduleDateTime!)
+                          : "Select Reschedule Date & Time",
+                      border: const OutlineInputBorder(),
+                    ),
+                    style: TextStyle(color: themeText),
                   ),
                 ),
               ),
-            ),
 
-          // ✅ Pickup form
-          if (selectedOption == "pickup") ...[
-            const SizedBox(height: 5),
-            _buildTextField(otpController, "OTP"),
-            _buildTextField(ramController, "RAM"),
-            _buildTextField(storageController, "Storage"),
-            _buildTextField(processorController, "Processor"),
-            _buildTextField(modelController, "Model"),
-            _buildTextField(noteController, "Note"),
-            const SizedBox(height: 10),
+            // ✅ Pickup form
+            if (selectedOption == "pickup") ...[
+              const SizedBox(height: 5),
+              _buildTextField(otpController, "OTP", themeText),
+              _buildTextField(ramController, "RAM", themeText),
+              _buildTextField(storageController, "Storage", themeText),
+              _buildTextField(processorController, "Processor", themeText),
+              _buildTextField(modelController, "Model", themeText),
+              _buildTextField(noteController, "Note", themeText),
+              const SizedBox(height: 10),
 
-            // ✅ Camera & Gallery Buttons
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: OutlinedButton.icon(
-                    onPressed: pickImageFromCamera,
-                    icon: const Icon(Icons.camera_alt),
-                    label: const Text("Camera"),
+              // ✅ Camera & Gallery Buttons
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: OutlinedButton.icon(
+                      onPressed: pickImageFromCamera,
+                      icon: const Icon(Icons.camera_alt),
+                      label: Text(
+                        "Camera",
+                        style: TextStyle(color: themeText),
+                      ),
+                    ),
                   ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: OutlinedButton.icon(
-                    onPressed: pickImagesFromGallery,
-                    icon: const Icon(Icons.photo_library),
-                    label: const Text("Gallery"),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: OutlinedButton.icon(
+                      onPressed: pickImagesFromGallery,
+                      icon: const Icon(Icons.photo_library),
+                      label: Text(
+                        "Gallery",
+                        style: TextStyle(color: themeText),
+                      ),
+                    ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
 
-            const SizedBox(height: 10),
+              const SizedBox(height: 10),
 
-            // ✅ Show existing + selected images
-            if (existingImageUrls.isNotEmpty || selectedImages.isNotEmpty)
-              GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  mainAxisSpacing: 5,
-                  crossAxisSpacing: 5,
-                ),
-                itemCount: existingImageUrls.length + selectedImages.length,
-                itemBuilder: (context, index) {
-                  final isRemote = index < existingImageUrls.length;
-                  if (isRemote) {
-                    final imageUrl = existingImageUrls[index];
-                    return Image.network(
-                      imageUrl,
-                      fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) =>
-                          const Icon(Icons.broken_image, color: Colors.grey),
-                    );
-                  } else {
-                    final localIndex = index - existingImageUrls.length;
-                    final file = selectedImages[localIndex];
-                    return Stack(
-                      children: [
-                        Positioned.fill(
-                          child: Image.file(file, fit: BoxFit.cover),
-                        ),
-                        Positioned(
-                          top: 2,
-                          right: 2,
-                          child: GestureDetector(
-                            onTap: () => setState(() {
-                              selectedImages.removeAt(localIndex);
-                            }),
-                            child: const CircleAvatar(
-                              radius: 10,
-                              backgroundColor: Colors.black54,
-                              child: Icon(Icons.close,
-                                  size: 14, color: Colors.white),
+              // ✅ Show existing + selected images
+              if (existingImageUrls.isNotEmpty || selectedImages.isNotEmpty)
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 5,
+                    crossAxisSpacing: 5,
+                  ),
+                  itemCount: existingImageUrls.length + selectedImages.length,
+                  itemBuilder: (context, index) {
+                    final isRemote = index < existingImageUrls.length;
+                    if (isRemote) {
+                      final imageUrl = existingImageUrls[index];
+                      return Image.network(
+                        imageUrl,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) =>
+                            const Icon(Icons.broken_image, color: Colors.grey),
+                      );
+                    } else {
+                      final localIndex = index - existingImageUrls.length;
+                      final file = selectedImages[localIndex];
+                      return Stack(
+                        children: [
+                          Positioned.fill(
+                            child: Image.file(file, fit: BoxFit.cover),
+                          ),
+                          Positioned(
+                            top: 2,
+                            right: 2,
+                            child: GestureDetector(
+                              onTap: () => setState(() {
+                                selectedImages.removeAt(localIndex);
+                              }),
+                              child: CircleAvatar(
+                                radius: 10,
+                                backgroundColor: Colors.black54,
+                                child: Icon(Icons.close,
+                                    size: 14, color: themeText),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    );
-                  }
-                },
-              ),
-          ],
+                        ],
+                      );
+                    }
+                  },
+                ),
+            ],
 
-          const SizedBox(height: 20),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: selectedOption != null ? updatePickupOption : null,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).primaryColor,
-                padding: const EdgeInsets.symmetric(vertical: 14),
-                textStyle: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+            const SizedBox(height: 20),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: selectedOption != null ? updatePickupOption : null,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).primaryColor,
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  textStyle: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: themeText),
+                ),
+                child: const Text(
+                  "Update",
+                  style: TextStyle(color: Colors.white),
                 ),
               ),
-              child: const Text(
-                "Update",
-                style: TextStyle(color: Colors.white),
-              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildTextField(TextEditingController controller, String label) {
+  Widget _buildTextField(
+      TextEditingController controller, String label, Color textcolor) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: TextField(
+        style: TextStyle(color: textcolor),
         controller: controller,
         decoration: InputDecoration(
+          suffixIconColor: textcolor,
           labelText: label,
           border: const OutlineInputBorder(),
         ),
@@ -1250,8 +1285,13 @@ class PickupDetailsCard extends StatelessWidget {
             ?.map((e) => e.toString())
             .toList() ??
         [];
+    final isDark = Get.isDarkMode;
 
+    final themeText = isDark ? Colors.white : Colors.black87;
     return Card(
+      color: isDark
+          ? Theme.of(context).primaryColorDark
+          : Theme.of(context).primaryColorLight,
       elevation: 1,
       margin: const EdgeInsets.symmetric(vertical: 8),
       child: Container(
@@ -1264,11 +1304,11 @@ class PickupDetailsCard extends StatelessWidget {
               "Pickup Details",
               style: robotoMedium.copyWith(
                 fontSize: 16,
-                color: Theme.of(context).primaryColor,
+                color: themeText,
               ),
             ),
             const SizedBox(height: 8),
-            _buildRow("Status", status?.toString()),
+            _buildRow("Status", status?.toString(), themeText),
             const SizedBox(height: 8),
             if (status != null &&
                 status.toString().toLowerCase() == "reschedule")
@@ -1277,56 +1317,58 @@ class PickupDetailsCard extends StatelessWidget {
                   date != null
                       ? DateFormat("yyyy-MM-dd HH:mm:ss")
                           .format(DateTime.parse(date.toString()))
-                      : "-"),
+                      : "-",
+                  themeText),
             if (status != null && status.toString().toLowerCase() == "pickup")
               const SizedBox(height: 8),
             if (status != null && status.toString().toLowerCase() == "pickup")
-              _buildRow("OTP", bookingOtp?.toString()),
+              _buildRow("OTP", bookingOtp?.toString(), themeText),
             if (status != null && status.toString().toLowerCase() == "pickup")
               const SizedBox(height: 8),
             if (status != null && status.toString().toLowerCase() == "pickup")
-              _buildRow("RAM", laptopDetails['ram']),
+              _buildRow("RAM", laptopDetails['ram'], themeText),
             if (status != null && status.toString().toLowerCase() == "pickup")
               const SizedBox(height: 8),
             if (status != null && status.toString().toLowerCase() == "pickup")
-              _buildRow("Storage", laptopDetails['storage']),
+              _buildRow("Storage", laptopDetails['storage'], themeText),
             if (status != null && status.toString().toLowerCase() == "pickup")
               const SizedBox(height: 8),
             if (status != null && status.toString().toLowerCase() == "pickup")
-              _buildRow("Processor", laptopDetails['processor']),
+              _buildRow("Processor", laptopDetails['processor'], themeText),
             if (status != null && status.toString().toLowerCase() == "pickup")
               const SizedBox(height: 8),
             if (status != null && status.toString().toLowerCase() == "pickup")
-              _buildRow("Model", laptopDetails['model']),
+              _buildRow("Model", laptopDetails['model'], themeText),
             if (status != null && status.toString().toLowerCase() == "pickup")
               const SizedBox(height: 8),
             if (status != null && status.toString().toLowerCase() == "pickup")
-              _buildRow("Note", laptopDetails['note']),
+              _buildRow("Note", laptopDetails['note'], themeText),
             if (status != null && status.toString().toLowerCase() == "pickup")
               const SizedBox(height: 12),
-            if (imageUrls.isNotEmpty) _buildImageGrid(context, imageUrls),
+            if (imageUrls.isNotEmpty)
+              _buildImageGrid(context, imageUrls, themeText),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildRow(String label, String? value) {
+  Widget _buildRow(String label, String? value, Color textColor) {
     return RichText(
       text: TextSpan(
         children: [
           TextSpan(
             text: "$label: ",
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: Colors.black87,
+              color: textColor,
             ),
           ),
           TextSpan(
             text: value ?? "-",
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.normal,
-              color: Colors.black87,
+              color: textColor,
             ),
           ),
         ],
@@ -1334,7 +1376,8 @@ class PickupDetailsCard extends StatelessWidget {
     );
   }
 
-  Widget _buildImageGrid(BuildContext context, List<String> imageUrls) {
+  Widget _buildImageGrid(
+      BuildContext context, List<String> imageUrls, Color themetext) {
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -1347,7 +1390,7 @@ class PickupDetailsCard extends StatelessWidget {
       itemBuilder: (context, index) {
         final imageUrl = imageUrls[index];
         return GestureDetector(
-          onTap: () => _showFullScreenImage(context, imageUrl),
+          onTap: () => _showFullScreenImage(context, imageUrl, themetext),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(5),
             child: Image.network(
@@ -1362,7 +1405,8 @@ class PickupDetailsCard extends StatelessWidget {
     );
   }
 
-  void _showFullScreenImage(BuildContext context, String imageUrl) {
+  void _showFullScreenImage(
+      BuildContext context, String imageUrl, Color themtext) {
     showDialog(
       context: context,
       builder: (_) => Dialog(
@@ -1376,7 +1420,7 @@ class PickupDetailsCard extends StatelessWidget {
                 imageUrl,
                 fit: BoxFit.contain,
                 errorBuilder: (_, __, ___) =>
-                    const Icon(Icons.broken_image, color: Colors.white),
+                    Icon(Icons.broken_image, color: themtext),
               ),
             ),
           ),

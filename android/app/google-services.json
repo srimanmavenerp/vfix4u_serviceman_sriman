@@ -1,21 +1,36 @@
 {
   "project_info": {
-    "project_number": "125949822411",
-    "project_id": "vfix4u-42216",
-    "storage_bucket": "vfix4u-42216.firebasestorage.app"
+    "project_number": "1059020015260",
+    "project_id": "vfix4u-ef2fc",
+    "storage_bucket": "vfix4u-ef2fc.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:125949822411:android:86cd71c3b95d6396dea24e",
+        "mobilesdk_app_id": "1:1059020015260:android:2f64336db16166d754cf59",
         "android_client_info": {
           "package_name": "com.vfix4u.com.vfix4u"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1059020015260-dd20ckavsk0td8fou0o2h0si46onkef0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vfix4u.com.vfix4u",
+            "certificate_hash": "ed61a7d3d3c4fa5861d74b99e9f3a8a46f0a5434"
+          }
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyA_BH6nVWJopGUcEer7onjkpAnOsu6X0AI"
+          "current_key": "AIzaSyATC9VEWYi6RazSBZ267swyobC7kX9BgqQ"
+        },
+        {
+          "current_key": "AIzaSyCZjgRbPeuE2h5daH5cXG0OL8l3DkU_fUI"
+        },
+        {
+          "current_key": "AIzaSyCxWOVyHYbRiqjZJD7e80s4SfDXxXU81Cs"
         }
       ],
       "services": {
@@ -26,7 +41,7 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:125949822411:android:4a92f479fb69fa76dea24e",
+        "mobilesdk_app_id": "1:1059020015260:android:7d751b0a60042c7f54cf59",
         "android_client_info": {
           "package_name": "com.vfix4u.com.vfix4u.provider"
         }
@@ -34,7 +49,13 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA_BH6nVWJopGUcEer7onjkpAnOsu6X0AI"
+          "current_key": "AIzaSyATC9VEWYi6RazSBZ267swyobC7kX9BgqQ"
+        },
+        {
+          "current_key": "AIzaSyCZjgRbPeuE2h5daH5cXG0OL8l3DkU_fUI"
+        },
+        {
+          "current_key": "AIzaSyCxWOVyHYbRiqjZJD7e80s4SfDXxXU81Cs"
         }
       ],
       "services": {
@@ -45,7 +66,7 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:125949822411:android:b30aa9d51420e0fadea24e",
+        "mobilesdk_app_id": "1:1059020015260:android:e726f72c2328fda554cf59",
         "android_client_info": {
           "package_name": "com.vfix4u.com.vfix4u.serviceman"
         }
@@ -53,7 +74,13 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA_BH6nVWJopGUcEer7onjkpAnOsu6X0AI"
+          "current_key": "AIzaSyATC9VEWYi6RazSBZ267swyobC7kX9BgqQ"
+        },
+        {
+          "current_key": "AIzaSyCZjgRbPeuE2h5daH5cXG0OL8l3DkU_fUI"
+        },
+        {
+          "current_key": "AIzaSyCxWOVyHYbRiqjZJD7e80s4SfDXxXU81Cs"
         }
       ],
       "services": {
